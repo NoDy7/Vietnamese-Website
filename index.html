@@ -4,11 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#171b16">
+  <meta property="og:title" content="WAR THUNDER / Operation Monsoon">
+  <meta property="og:description" content="Операция начинается там, где заканчивается карта.">
+  <meta property="og:image" content="assets/m113a1.jpg">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <title>WAR THUNDER / Operation Monsoon</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=6">
+  <link rel="stylesheet" href="styles.css?v=8">
 </head>
 <body>
   <div class="preloader" aria-label="Загрузка операции"><div class="loader-mark">WT</div><div class="loader-line"><span></span></div><p>LOADING OPERATION MONSOON <b>00%</b></p></div>
@@ -36,6 +40,7 @@
     <section class="hero" id="briefing">
       <div class="hero-backdrop"></div>
       <div class="hero-grid"></div>
+      <div class="flight-path"><span class="flight-icon">✈</span></div>
       <div class="hero-content">
         <div class="eyebrow"><i></i> CLASSIFIED // 1968</div>
         <h1>НЕБО.<br><em>ДЖУНГЛИ.</em><br>СТАЛЬ.</h1>
@@ -68,39 +73,41 @@
         <button class="filter active" data-filter="all" type="button">ALL UNITS <span>07</span></button>
         <button class="filter" data-filter="air" type="button">AIR <span>04</span></button>
         <button class="filter" data-filter="ground" type="button">GROUND <span>03</span></button>
+        <button class="filter" data-filter="us" type="button">US <span>05</span></button>
+        <button class="filter" data-filter="vn" type="button">NORTH VIETNAM <span>02</span></button>
       </div>
       <div class="arsenal-grid">
-        <article class="unit-card large reveal" data-type="air" data-unit="F-4C PHANTOM II" data-role="AIR SUPERIORITY" data-country="US AIR FORCE // 1965" data-stats="Скорость|2 370 км/ч|Вооружение|4 × AIM-9 Sidewinder|Экипаж|2">
+        <article class="unit-card large reveal" data-type="air" data-side="us" data-unit="F-4C PHANTOM II" data-role="AIR SUPERIORITY" data-country="US AIR FORCE // 1965" data-rating="8.8" data-stats="Скорость|2 370 км/ч|Вооружение|4 × AIM-9 Sidewinder|Экипаж|2">
           <div class="unit-image phantom-photo"></div>
           <div class="unit-overlay"></div>
           <div class="unit-meta"><span>01 / AIR SUPERIORITY</span><strong>F-4C PHANTOM II</strong><small>US AIR FORCE // 1965</small></div>
           <span class="unit-status">READY</span>
         </article>
-        <article class="unit-card reveal" data-type="ground" data-unit="M60A1" data-role="MAIN BATTLE TANK" data-country="US ARMY // 1966" data-stats="Орудие|105 мм M68|Броня|Многослойная сталь|Экипаж|4">
+        <article class="unit-card reveal" data-type="ground" data-side="us" data-unit="M60A1" data-role="MAIN BATTLE TANK" data-country="US ARMY // 1966" data-rating="8.2" data-stats="Скорость|48 км/ч|Вооружение|105 мм M68|Броня|Многослойная сталь">
           <div class="unit-image m60-photo"></div>
           <div class="unit-overlay"></div>
           <div class="unit-meta"><span>02 / MAIN BATTLE TANK</span><strong>M60A1</strong><small>US ARMY // 1966</small></div>
           <span class="unit-status">ARMED</span>
         </article>
-        <article class="unit-card reveal" data-type="air" data-unit="A-1H SKYRAIDER" data-role="CLOSE AIR SUPPORT" data-country="US NAVY // 1967" data-stats="Скорость|560 км/ч|Вооружение|8 × 20 мм пушки|Нагрузка|3 600 кг">
+        <article class="unit-card reveal" data-type="air" data-side="us" data-unit="A-1H SKYRAIDER" data-role="CLOSE AIR SUPPORT" data-country="US NAVY // 1967" data-rating="7.9" data-stats="Скорость|560 км/ч|Вооружение|8 × 20 мм пушки|Нагрузка|3 600 кг">
           <div class="unit-image skyraider-photo"></div>
           <div class="unit-overlay"></div>
           <div class="unit-meta"><span>03 / CLOSE AIR SUPPORT</span><strong>A-1H SKYRAIDER</strong><small>US NAVY // 1967</small></div>
           <span class="unit-status">IN FLIGHT</span>
         </article>
-        <article class="unit-card reveal" data-type="ground" data-unit="M113A1" data-role="ARMORED SUPPORT" data-country="US ARMY // 1964" data-stats="Экипаж|2 + 11 десантников|Броня|12–38 мм алюминий|Двигатель|215 л.с.">
+        <article class="unit-card reveal" data-type="ground" data-side="us" data-unit="M113A1" data-role="ARMORED SUPPORT" data-country="US ARMY // 1964" data-rating="6.8" data-stats="Скорость|64 км/ч|Броня|12–38 мм алюминий|Десант|11 бойцов">
           <div class="unit-image m113-photo"></div>
           <div class="unit-overlay"></div>
           <div class="unit-meta"><span>04 / ARMORED SUPPORT</span><strong>M113A1</strong><small>US ARMY // 1964</small></div>
           <span class="unit-status">READY</span>
         </article>
-        <article class="unit-card reveal" data-type="air" data-unit="UH-1 HUEY" data-role="UTILITY HELICOPTER" data-country="US ARMY // 1967" data-stats="Скорость|217 км/ч|Вооружение|2 × M60D|Экипаж|4">
+        <article class="unit-card reveal" data-type="air" data-side="us" data-unit="UH-1 HUEY" data-role="UTILITY HELICOPTER" data-country="US ARMY // 1967" data-rating="7.4" data-stats="Скорость|217 км/ч|Вооружение|2 × M60D|Экипаж|4">
           <div class="unit-image huey-photo"></div><div class="unit-overlay"></div><div class="unit-meta"><span>05 / UTILITY HELICOPTER</span><strong>UH-1 HUEY</strong><small>US ARMY // 1967</small></div><span class="unit-status">READY</span>
         </article>
-        <article class="unit-card reveal" data-type="air" data-unit="MiG-17F" data-role="JET FIGHTER" data-country="NORTH VIETNAM // 1967" data-stats="Скорость|1 145 км/ч|Вооружение|1 × 37 мм + 2 × 23 мм|Экипаж|1">
+        <article class="unit-card reveal" data-type="air" data-side="vn" data-unit="MiG-17F" data-role="JET FIGHTER" data-country="NORTH VIETNAM // 1967" data-rating="8.1" data-stats="Скорость|1 145 км/ч|Вооружение|1 × 37 мм + 2 × 23 мм|Экипаж|1">
           <div class="unit-image mig-photo"></div><div class="unit-overlay"></div><div class="unit-meta"><span>06 / JET FIGHTER</span><strong>MiG-17F</strong><small>NORTH VIETNAM // 1967</small></div><span class="unit-status">ARMED</span>
         </article>
-        <article class="unit-card reveal" data-type="ground" data-unit="T-54" data-role="MAIN BATTLE TANK" data-country="NORTH VIETNAM // 1969" data-stats="Орудие|100 мм D-10T|Броня|20–203 мм сталь|Экипаж|4">
+        <article class="unit-card reveal" data-type="ground" data-side="vn" data-unit="T-54" data-role="MAIN BATTLE TANK" data-country="NORTH VIETNAM // 1969" data-rating="8.5" data-stats="Скорость|55 км/ч|Орудие|100 мм D-10T|Броня|20–203 мм сталь">
           <div class="unit-image t54-photo"></div><div class="unit-overlay"></div><div class="unit-meta"><span>07 / MAIN BATTLE TANK</span><strong>T-54</strong><small>NORTH VIETNAM // 1969</small></div><span class="unit-status">ARMED</span>
         </article>
       </div>
@@ -116,6 +123,10 @@
     </section>
 
     <section class="section chronicle" id="chronicle"><div class="section-head reveal"><div><span class="section-kicker">03 / ARCHIVE</span><h2>ХРОНИКА<br><em>СЕКТОРА</em></h2></div><p>История операции,<br>зафиксированная в поле.</p></div><div class="timeline"><article class="timeline-item reveal"><b>1965</b><span>14 NOV</span><p>Первые F-4C прибывают на авиабазу Да Нанг.</p></article><article class="timeline-item reveal"><b>1966</b><span>08 MAR</span><p>M60A1 получает боевое крещение в составе бронеколонны.</p></article><article class="timeline-item reveal"><b>1968</b><span>30 JAN</span><p>Начало наступления Тет. Сектор объявлен зоной повышенного риска.</p></article><article class="timeline-item reveal"><b>1969</b><span>17 SEP</span><p>Разведка отмечает движение T-54 на северном маршруте.</p></article></div></section>
+
+    <section class="section gallery" id="gallery"><div class="section-head reveal"><div><span class="section-kicker">04 / FIELD ARCHIVE</span><h2>АРХИВ<br><em>КАДРОВ</em></h2></div><p>Фотографии техники<br>из локального архива.</p></div><div class="gallery-grid"><button class="gallery-item reveal" type="button" data-gallery="assets/m113a1.jpg"><img src="assets/m113a1.jpg" loading="lazy" alt="M113A1 в джунглях"><span>M113A1 // CONVOY</span></button><button class="gallery-item reveal" type="button" data-gallery="assets/f4c-phantom.jpg"><img src="assets/f4c-phantom.jpg" loading="lazy" alt="F-4C Phantom II"><span>F-4C // AIRFIELD</span></button><button class="gallery-item reveal" type="button" data-gallery="assets/t54.jpg"><img src="assets/t54.jpg" loading="lazy" alt="T-54 в музее Вьетнама"><span>T-54 // CAPTURED</span></button><button class="gallery-item reveal" type="button" data-gallery="assets/uh1-huey.jpg"><img src="assets/uh1-huey.jpg" loading="lazy" alt="UH-1 Huey"><span>UH-1 // MEDEVAC</span></button></div></section>
+
+    <section class="section feedback" id="feedback"><div class="section-head reveal"><div><span class="section-kicker">05 / FIELD NOTES</span><h2>СВЯЗЬ<br><em>С ШТАБОМ</em></h2></div><p>Оставьте сообщение<br>оперативному штабу.</p></div><form class="feedback-form reveal"><label>CALLSIGN<input name="callsign" placeholder="YOUR CALLSIGN" required></label><label>MESSAGE<textarea name="message" placeholder="FIELD NOTE" rows="3" required></textarea></label><button class="button button-primary" type="submit">TRANSMIT NOTE <span>↗</span></button></form></section>
 
     <section class="section theater" id="theater">
       <div class="theater-map reveal">
@@ -137,13 +148,15 @@
       <h2 id="modal-title">UNIT</h2>
       <p class="modal-country" id="modal-country"></p>
       <div class="modal-stats" id="modal-stats"></div>
-      <div class="modal-footer"><span>STATUS // OPERATIONAL</span><b>CLASSIFIED</b></div>
+      <div class="modal-footer"><span>RATING // <b id="modal-rating">0.0</b> / 10</span><b>CLASSIFIED</b></div>
     </div>
   </div>
   <div class="mission-modal" aria-hidden="true" role="dialog" aria-modal="true"><div class="modal-backdrop" data-close-mission></div><div class="modal-panel mission-panel"><button class="modal-close" type="button" aria-label="Закрыть миссию" data-close-mission>×</button><span class="section-kicker" id="mission-modal-tag">MISSION DOSSIER</span><h2 id="mission-modal-title">MISSION</h2><p id="mission-modal-copy"></p><div class="mission-brief-grid"><div><span>OBJECTIVE</span><b id="mission-objective"></b></div><div><span>REWARD</span><b id="mission-reward"></b></div><div><span>RISK</span><b id="mission-risk"></b></div></div><button class="button button-primary deploy-button" type="button">DEPLOY UNIT <span>↗</span></button></div></div>
+  <div class="results-modal" aria-hidden="true" role="dialog" aria-modal="true"><div class="modal-backdrop" data-close-results></div><div class="modal-panel results-panel"><span class="section-kicker">AFTER ACTION REPORT</span><h2>МИССИЯ<br><em>ЗАВЕРШЕНА</em></h2><p>Задание выполнено. Данные переданы в оперативный штаб.</p><div class="results-grid"><div><span>TARGETS</span><b>+3</b></div><div><span>ROUTE</span><b>+8%</b></div><div><span>REWARD</span><b>9 500 SL</b></div></div><button class="button button-primary" type="button" data-close-results>RETURN TO THEATER <span>↗</span></button></div></div>
+  <div class="gallery-modal" aria-hidden="true"><div class="modal-backdrop" data-close-gallery></div><div class="gallery-viewer"><button class="modal-close" type="button" aria-label="Закрыть фото" data-close-gallery>×</button><img id="gallery-preview" alt="Архивная фотография"></div></div>
 
   <footer class="site-footer"><span>WAR THUNDER / OPERATION MONSOON</span><span>© 2026 GAJIN ENTERTAINMENT</span><span>16°03'N / 108°12'E</span></footer>
   <div class="toast" role="status" aria-live="polite"></div>
-  <script src="script.js?v=2"></script>
+  <script src="script.js?v=4"></script>
 </body>
 </html>

@@ -7,7 +7,9 @@ const modalTitle = document.querySelector('#modal-title');
 const modalRole = document.querySelector('#modal-role');
 const modalCountry = document.querySelector('#modal-country');
 const modalStats = document.querySelector('#modal-stats');
+const modalRating = document.querySelector('#modal-rating');
 const missionModal = document.querySelector('.mission-modal');
+const resultsModal = document.querySelector('.results-modal');
 const missionData = {
   storm: { tag: 'DA NANG // AIR', title: 'ГРОЗОВОЙ ФРОНТ', copy: 'Сопроводить ударную группу сквозь муссонный фронт и подавить зенитные позиции.', objective: 'Уничтожить 6 ЗРК', reward: '12 000 SL', risk: 'HIGH' },
   corridor: { tag: 'KHE SANH // GROUND', title: 'СТАЛЬНОЙ КОРИДОР', copy: 'Пробить блокаду на трассе 9 и вывести конвой до наступления темноты.', objective: 'Доставить 3 машины', reward: '9 500 SL', risk: 'MEDIUM' },
@@ -34,7 +36,7 @@ filterButtons.forEach((button) => {
     button.classList.add('active');
     const filter = button.dataset.filter;
     unitCards.forEach((card) => {
-      const visible = filter === 'all' || card.dataset.type === filter;
+      const visible = filter === 'all' || card.dataset.type === filter || card.dataset.side === filter;
       card.animate([
         { opacity: visible ? 0.25 : 1, transform: 'scale(.98)' },
         { opacity: visible ? 1 : 0.18, transform: 'scale(1)' }
@@ -49,6 +51,7 @@ unitCards.forEach((card) => {
     modalTitle.textContent = card.dataset.unit;
     modalRole.textContent = card.dataset.role;
     modalCountry.textContent = card.dataset.country;
+    modalRating.textContent = card.dataset.rating;
     modalStats.innerHTML = card.dataset.stats.split('|').reduce((html, value, index, stats) => index % 2 ? html : `${html}<div class="modal-stat"><span>${value}</span><strong>${stats[index + 1]}</strong></div>`, '');
     unitModal.classList.add('open');
     unitModal.setAttribute('aria-hidden', 'false');
@@ -83,16 +86,20 @@ document.querySelectorAll('[data-alert]').forEach((button) => {
 
 const preloader = document.querySelector('.preloader');
 const loaderFill = document.querySelector('.loader-line span');
+const preloadAssets = ['assets/m113a1.jpg', 'assets/f4c-phantom.jpg', 'assets/m60a1.jpg', 'assets/a1h-skyraider.jpg', 'assets/uh1-huey.jpg', 'assets/mig17.jpg', 'assets/t54.jpg', 'assets/rain.mp3', 'assets/radio.mp3', 'assets/gunfire.mp3', 'assets/explosion.mp3'];
 let progress = 0;
-const loaderTimer = window.setInterval(() => {
-  progress = Math.min(progress + Math.ceil(Math.random() * 13), 100);
+let loadedAssets = 0;
+const updateLoader = () => {
+  loadedAssets += 1;
+  progress = Math.round((loadedAssets / preloadAssets.length) * 100);
   loaderFill.style.transform = `scaleX(${progress / 100})`;
   document.querySelector('.preloader p b').textContent = `${String(progress).padStart(2, '0')}%`;
   if (progress === 100) {
-    window.clearInterval(loaderTimer);
     window.setTimeout(() => preloader.classList.add('done'), 250);
   }
-}, 55);
+};
+preloadAssets.forEach((source) => { const audio = source.endsWith('.mp3'); const media = audio ? new Audio() : new Image(); if (audio) media.addEventListener('canplaythrough', updateLoader, { once: true }); else media.onload = updateLoader; media.onerror = updateLoader; media.src = source; });
+window.setTimeout(() => { if (!preloader.classList.contains('done')) { progress = 100; loaderFill.style.transform = 'scaleX(1)'; document.querySelector('.preloader p b').textContent = '100%'; preloader.classList.add('done'); } }, 4500);
 
 const menuToggle = document.querySelector('.menu-toggle');
 menuToggle.addEventListener('click', () => {
@@ -172,7 +179,17 @@ document.querySelectorAll('.mission-button').forEach((button) => button.addEvent
 }));
 
 document.querySelectorAll('[data-close-mission]').forEach((element) => element.addEventListener('click', () => { missionModal.classList.remove('open'); missionModal.setAttribute('aria-hidden', 'true'); }));
-document.querySelector('.deploy-button').addEventListener('click', () => { missionModal.classList.remove('open'); missionModal.setAttribute('aria-hidden', 'true'); const route = document.querySelector('[data-stat="route"]'); const targets = document.querySelector('[data-stat="targets"]'); route.textContent = Math.min(100, Number(route.textContent) + 8); targets.textContent = Number(targets.textContent) + 3; document.querySelector('[data-stat="status"]').textContent = 'DEPLOYED'; });
+document.querySelector('.deploy-button').addEventListener('click', () => { missionModal.classList.remove('open'); missionModal.setAttribute('aria-hidden', 'true'); const route = document.querySelector('[data-stat="route"]'); const targets = document.querySelector('[data-stat="targets"]'); route.textContent = Math.min(100, Number(route.textContent) + 8); targets.textContent = Number(targets.textContent) + 3; document.querySelector('[data-stat="status"]').textContent = 'DEPLOYED'; resultsModal.classList.add('open'); resultsModal.setAttribute('aria-hidden', 'false'); });
+document.querySelectorAll('[data-close-results]').forEach((element) => element.addEventListener('click', () => { resultsModal.classList.remove('open'); resultsModal.setAttribute('aria-hidden', 'true'); }));
+
+document.querySelectorAll('.gallery-item').forEach((item) => item.addEventListener('click', () => { document.querySelector('#gallery-preview').src = item.dataset.gallery; const galleryModal = document.querySelector('.gallery-modal'); galleryModal.classList.add('open'); galleryModal.setAttribute('aria-hidden', 'false'); }));
+document.querySelectorAll('[data-close-gallery]').forEach((element) => element.addEventListener('click', () => { const galleryModal = document.querySelector('.gallery-modal'); galleryModal.classList.remove('open'); galleryModal.setAttribute('aria-hidden', 'true'); }));
+
+document.querySelector('.feedback-form').addEventListener('submit', (event) => { event.preventDefault(); const callsign = new FormData(event.currentTarget).get('callsign'); toast.textContent = `Сообщение от ${callsign} передано в штаб.`; toast.classList.add('show'); event.currentTarget.reset(); window.setTimeout(() => toast.classList.remove('show'), 3200); });
+
+const radioCaptions = ['«Колонна вошла в сектор. Приём.»', '«Вижу контакт на северном маршруте.»', '«Погода ухудшается. Держите строй.»'];
+let radioCaptionIndex = 0;
+window.setInterval(() => { radioCaptionIndex = (radioCaptionIndex + 1) % radioCaptions.length; document.querySelector('.radio-caption b').textContent = radioCaptions[radioCaptionIndex]; }, 6000);
 
 document.querySelectorAll('.time-toggle').forEach((button) => button.addEventListener('click', () => { document.body.dataset.time = button.dataset.time; document.querySelectorAll('.time-toggle').forEach((item) => item.classList.remove('active')); button.classList.add('active'); localStorage.setItem('monsoon-time', button.dataset.time); }));
 document.querySelector('.weather-select').addEventListener('change', (event) => { document.body.dataset.weather = event.currentTarget.value; localStorage.setItem('monsoon-weather', event.currentTarget.value); });

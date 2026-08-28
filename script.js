@@ -73,12 +73,6 @@ document.querySelectorAll('[data-scroll]').forEach((button) => {
   button.addEventListener('click', () => document.querySelector(button.dataset.scroll).scrollIntoView({ behavior: 'smooth' }));
 });
 
-document.querySelector('[data-alert]').addEventListener('click', (event) => {
-  toast.textContent = event.currentTarget.dataset.alert;
-  toast.classList.add('show');
-  window.setTimeout(() => toast.classList.remove('show'), 3200);
-});
-
 document.querySelectorAll('[data-alert]').forEach((button) => {
   button.addEventListener('click', () => {
     toast.textContent = button.dataset.alert;
